@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
+    [SerializeField]
+    private GameController gameController;
+
     // X√‡ ¿Ãµø
     private float moveXWidth = 1.5f;
     private float moveTimeX = 0.1f;
@@ -33,6 +36,8 @@ public class Movement : MonoBehaviour
 
     private void Update()
     {
+        if (gameController.IsGameStart == false) return;
+
         transform.position += Vector3.forward * moveSpeed * Time.deltaTime;
         transform.Rotate(Vector3.right * rotateSpeed * Time.deltaTime);
 
