@@ -1,4 +1,4 @@
-using System.Collections;
+癤퓎sing System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,22 +7,22 @@ public class Movement : MonoBehaviour
     [SerializeField]
     private GameController gameController;
 
-    // X축 이동
+    // X-axis movement
     private float moveXWidth = 1.5f;
     private float moveTimeX = 0.1f;
     private bool isXMove = false;
 
-    // Y축 이동
+    // Y-axis movement
     private float originY = 0.55F;
     private float gravity = -9.81f;
-    private float moveTimeY = 0.3f;
+    private float moveTimeY = 0.5f;
     private bool isJump = false;
 
-    // Z축 이동
+    // Z-axis movement
     [SerializeField]
     private float moveSpeed = 20.0f;
 
-    // 회전
+    // Rotation speed
     private float rotateSpeed = 300.0f;
 
     private float limitY = -1.0f;
@@ -41,9 +41,9 @@ public class Movement : MonoBehaviour
         transform.position += Vector3.forward * moveSpeed * Time.deltaTime;
         transform.Rotate(Vector3.right * rotateSpeed * Time.deltaTime);
 
-        if(transform.position.y > limitY)
+        if(transform.position.y < limitY)
         {
-            Debug.Log("게임 오버");
+            Debug.Log("Game Over");
         }
     }
 
@@ -53,11 +53,11 @@ public class Movement : MonoBehaviour
 
         if( x > 0 && transform.position.x < moveXWidth )
         {
-            StartCoroutine(OnMoveToX(x)); // 오른쪽 이동
+            StartCoroutine(OnMoveToX(x)); // Move right
         }
         else if ( x < 0 && transform.position.x > -moveXWidth )
         {
-            StartCoroutine(OnMoveToX(x)); // 왼쪽 이동
+            StartCoroutine(OnMoveToX(x)); // Move left
         }
     }
 
@@ -95,7 +95,7 @@ public class Movement : MonoBehaviour
     {
         float current = 0;
         float percent = 0;
-        float v0 = -gravity; // Y방향의 초기 속도
+        float v0 = -gravity; // Y-axis initial velocity
 
         isJump = true;
         rigidbody.useGravity = false;
