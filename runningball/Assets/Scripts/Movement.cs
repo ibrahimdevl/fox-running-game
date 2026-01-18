@@ -41,6 +41,21 @@ public class Movement : MonoBehaviour
         transform.position += Vector3.forward * moveSpeed * Time.deltaTime;
         transform.Rotate(Vector3.right * rotateSpeed * Time.deltaTime);
 
+        // Handle arrow key input
+        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            MoveToX(-1);
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            MoveToX(1);
+        }
+
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.Space))
+        {
+            MoveToY();
+        }
+
         if(transform.position.y < limitY)
         {
             Debug.Log("Game Over");
