@@ -28,10 +28,15 @@ public class Movement : MonoBehaviour
     private float limitY = -1.0f;
 
     private Rigidbody rigidbody;
+    private bool hasAvatarModel = false;
 
     private void Awake()
     {
         rigidbody = GetComponent<Rigidbody>();
+        
+        // Check if there's an avatar model (child object)
+        AvatarCharacterHelper avatarHelper = GetComponent<AvatarCharacterHelper>();
+        hasAvatarModel = avatarHelper != null;
     }
 
     private void Update()
@@ -39,7 +44,12 @@ public class Movement : MonoBehaviour
         if (gameController.IsGameStart == false) return;
 
         transform.position += Vector3.forward * moveSpeed * Time.deltaTime;
-        transform.Rotate(Vector3.right * rotateSpeed * Time.deltaTime);
+        
+        // Only rotate if there's no avatar model (backward compatibility with sphere)
+        if (!hasAvatarModel)
+        {
+            transform.Rotate(Vector3.right * rotateSpeed * Time.deltaTime);
+        }
 
         // Handle arrow key input
         if (Input.GetKeyDown(KeyCode.LeftArrow))
